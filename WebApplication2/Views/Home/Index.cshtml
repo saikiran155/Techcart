@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .carousel-item img {
+    height: 70vh; 
+    width: 120%;
+    object-fit: cover;
+    border-radius: 20px;
+    }
+</style>
+
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <a href="@Url.Action("Index","Home")">
+                <img src="img/ban2.jpg" class="d-block w-100" style="background-size:cover" alt="...">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="@Url.Action("Index","Home")">
+                <img src="img/ban3.jpg" class="d-block w-100" style="background-size:cover" alt="...">
+            </a>
+        </div>
+        <div class="carousel-item">
+            <a href="@Url.Action("Index","Home")">
+                <img src="img/ban1.jpg" class="d-block w-100" alt="...">
+            </a>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+@model IEnumerable<Techcart.Models.Product>
+
+
+
+<br />
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var d in Model)
+    {
+        <div class="col">
+            <div class="card h-50">
+                <img src="@d.ImagePath" class="Product-image" />
+                <div class="card-body">
+                    <h5 class="card-title">@d.Name</h5>
+                    <p class="card-text">INR @d.Price</p>
+                    <p class="card-text">@d.Description</p>
+                    @if (User.IsInRole("User"))
+                    {
+                        <a><input type="number" id="quantity-@d.Id" value="1" min="1" class="form-control" style="width:60px;" /></a>
+                        <a class="btn btn-success" href="javascript:addToCart('@d.Id', '@d.Name', '@d.Price')">Add to Cart</a>
+                        <a class="btn btn-primary" href="@Url.Action("Details", "Product", new { id = d.Id })">Detail</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" href="@Url.Action("Details", "Product", new { id = d.Id })">Detail</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function addToCart(id, name, price) {
+        var quantity = document.getElementById("quantity-" + id).value;
+        window.location.href = "/Cart/AddCart?id=" + id + "&name=" + encodeURIComponent(name) + "&price=" + price + "&quantity=" + quantity;
+    }
+</script>

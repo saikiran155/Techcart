@@ -1,0 +1,22 @@
+﻿@model Techcart.Models.Order
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        
+            <h2>Payment Successful</h2><br />
+            <p><strong>Order ID:</strong> @Model.OrderId</p>
+            <br />
+            @if (Model.PaymentMethod == "Cash on Delivery")
+            {
+                <p><strong>Payment Status:</strong> Pending Payment</p>
+            }
+            else
+            {
+                <p><strong>Payment Status:</strong> @Model.PaymentStatus</p>
+            }
+            <br />
+            <p><strong>Order Status:</strong> @Model.OrderStatus</p>
+            <br />
+            <a href="/">Go to Home</a>
+      
+    </div>
+</div>

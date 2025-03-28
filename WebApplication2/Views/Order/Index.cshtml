@@ -1,0 +1,20 @@
+﻿@model Techcart.Models.Order
+
+<h2>Checkout</h2>
+
+<p><strong>Total Amount:</strong> INR @ViewBag.Amount</p>
+
+<form asp-action="ProcessPayment" method="post">
+    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+    <input type="hidden" asp-for="TotalAmount" value="@Model.TotalAmount" />
+
+    <label>Payment Method:</label>
+    <select asp-for="PaymentMethod" class="form-control">
+        <option value="Credit Card">Credit Card</option>
+        <option value="UPI">UPI</option>
+        <option value="Net Banking">Net Banking</option>
+        <option value="Cash on Delivery">Cash On Delivery</option>
+    </select>
+
+    <button type="submit" @Url.Action("Checkout","Order",new{id=Model.OrderId}) class="btn btn-success">Pay Now</button>
+</form>

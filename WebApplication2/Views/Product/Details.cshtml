@@ -1,0 +1,21 @@
+﻿@model Techcart.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2>Product Details</h2>
+
+<div>
+
+    <div class="product-image">
+        <img src="@Model.ImagePath" class="card-img-top" alt="Product Image" style="height:30%; width:30%; margin-top:30px; object-fit: cover;">
+    </div>
+
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Price:</strong> @Model.Price</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+</div>
+
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to List</a>

@@ -1,0 +1,55 @@
+﻿@model List<Techcart.Models.Cart>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h2>Shopping Cart</h2>
+
+@if (Model.Count == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.TotalPrice</td>
+                    @{
+                        @using Microsoft.AspNetCore.Identity
+                        @inject UserManager<IdentityUser> UserManager
+
+                        var user = await UserManager.GetUserAsync(User);
+                    }
+                    <td>
+                        <a asp-action="RemoveCart" asp-route-id="@item.Id" class="btn btn-danger">Remove</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+        <a href="@Url.Action("Index","Order")" class="btn btn-success">Order Now</a>
+    </table>
+
+
+}
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">Continue Shopping</a>
+
